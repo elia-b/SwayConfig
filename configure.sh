@@ -4,7 +4,7 @@ script_dir="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
 # wofi is not used for now
 
-for app in fontconfig alacritty waybar sway swaylock rofi dunst; do
+for app in system-images fontconfig alacritty waybar sway swaylock rofi dunst; do
   src="$script_dir/$app"
   tgt="$HOME/.config/$app"
   rm -rf "$tgt"
