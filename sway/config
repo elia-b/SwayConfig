@@ -1,0 +1,200 @@
+# Config for sway
+
+#===============================#
+# Variables
+#===============================#
+set $mod Mod4
+
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $term alacritty -e ~/bin/tmux_new_or_attach
+set $desktop $HOME/.config/system-images/forest_birdeye_view.jpg
+set $menu rofi -show drun -modes "drun" | xargs swaymsg exec --
+set $menu_files rofi -show homefilefinder -modes homefilefinder | xargs swaymsg exec --
+set $menu_copy rofi -show cliphist -sidebar-mode true -modes "cliphist,iconpicker,emoji" | xargs swaymsg exec --
+set $browser firefox-developer-edition
+
+set $partial_screenshot ~/.config/sway/selection_screenshot
+set $screenshot grim - | tee ~/Pictures/Screenshots/$(date "+%Y%m%d-%H%M%S").png | wl-copy && dunstify -u low "󰹑" "Fullscreen Screenshot"
+
+#===============================#
+# Borders
+#===============================#
+smart_borders on
+default_border pixel 3
+client.focused #a7c080 #a7c080 #272e33 #a7c080
+client.focused_inactive #272e33 #272e33 #7fbbb3 #7fbbb3
+client.unfocused  #272e33 #272e33 #7fbbb3 #7fbbb3
+client.urgent  #272e33 #272e33 #7fbbb3 #7fbbb3
+client.background  #272e33
+
+#===============================#
+# Desktop
+#===============================#
+output * bg $desktop fill
+
+#===============================#
+# External Screens
+#===============================#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+#===============================#
+# Idle and Lock Screens
+#===============================#
+exec swayidle -w \
+        timeout 300 'swaylock -e -f -i $desktop' \
+         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -e -f -i $desktop '
+
+bindsym $mod+Shift+m exec swaylock -e -f -i $desktop
+
+#===============================#
+# Keyboard Shortcuts (Hardware) 
+#===============================#
+# Audio
+bindsym XF86AudioRaiseVolume exec "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+; pkill -RTMIN+8 waybar; ~/.config/sway/audio_notificaiton"
+bindsym XF86AudioLowerVolume exec "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; pkill -RTMIN+8 waybar; ~/.config/sway/audio_notificaiton"
+bindsym XF86AudioMute exec "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; pkill -RTMIN+8 waybar; ~/.config/sway/audio_notificaiton"
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioStop exec playerctl stop
+# Brightness
+bindsym XF86MonBrightnessDown exec "brightnessctl set 5000-; ~/.config/sway/brightness_notification"
+bindsym XF86MonBrightnessUp exec "brightnessctl set +5000; ~/.config/sway/brightness_notification"
+# Extra
+# bindsym XF86Search exec $menu
+
+#===============================#
+# Touchpad and Keyboard
+#===============================#
+input type:touchpad {
+  dwt enabled
+  tap enabled
+  natural_scroll enabled
+  middle_emulation enabled
+}
+input type:keyboard {
+      xkb_layout "de"
+}
+
+#===============================#
+# Key bindings
+#===============================#
+# General
+bindsym $mod+Return exec $term
+bindsym $mod+Backspace kill
+bindsym $mod+q kill
+bindsym $mod+d exec $menu_files
+bindsym $mod+space exec $menu
+bindsym $mod+b exec $browser
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+s exec $screenshot
+bindsym Print+Shift exec $screenshot
+bindsym $mod+Shift+p exec $partial_screenshot
+bindsym Print exec $partial_screenshot
+# Exit sway (logs you out of your Wayland session)
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+# Move Around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+# Move Focus
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+#===============================#
+# Workspaces
+#===============================#
+# Switch Workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+# Move Container to Workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+#===============================#
+# Layout
+#===============================#
+bindsym $mod+n splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+# bindsym $mod+sp ce focus mode_toggle
+bindsym $mod+a focus parent
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+# Resizing Containers
+floating_modifier $mod normal
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+#===============================#
+# Status Bar
+#===============================#
+bar swaybar_command waybar
+
+#===============================#
+# Clipboard History
+#===============================#
+exec wl-paste --watch cliphist store
+bindsym $mod+c exec $menu_copy
+
+#===============================#
+# Cron Jobs
+#===============================#
+exec_always --no-startup-id ~/.config/sway/battery_warning &
+
+#===============================#
+# Set Sway Default Stuff
+#===============================#
+include /etc/sway/config.d/*

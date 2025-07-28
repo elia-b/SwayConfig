@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+sel=$(slurp)
+[ -z "$sel" ] && exit
+file=~/Pictures/Screenshots/$(date "+%Y%m%d-%H%M%S").png
+grim -g "$sel" "$file"
+wl-copy < "$file"
+dunstify -u low "󰹑" "Selection Screenshot"

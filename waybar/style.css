@@ -1,0 +1,131 @@
+@define-color bg_dim  #1e2326;
+@define-color bg0 #272e33;
+@define-color bg1 #2e383c;
+@define-color bg2 #374145;
+@define-color bg3 #414b50;
+@define-color bg4 #495156;
+@define-color bg5 #4f5b58;
+@define-color bg_visual #4c3743;
+@define-color bg_red #493b40;
+@define-color bg_green #3c4841;
+@define-color bg_blue #384b55;
+@define-color bg_yellow #45443c;
+@define-color fg #D3C6AA;
+@define-color red #E67E80;
+@define-color orange #E69875;
+@define-color yellow #DBBC7F;
+@define-color green #A7C080;
+@define-color aqua #83C092;
+@define-color blue #7FBBB3;
+@define-color purple #D699B6;
+@define-color grey0 #7A8478;
+@define-color grey1 #859289;
+@define-color grey2 #9DA9A0;
+@define-color statusline1 #A7C080;
+@define-color statusline2 #D3C6AA;
+@define-color statusline3 #E67E80;
+
+window#waybar {
+    background: transparent;
+    font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    min-height: 0;
+}
+
+.module {
+  background: @bg0;
+  color: @green;
+  padding: 0px 15px;
+  margin: 0px 4px;
+  border-radius: 10px;
+}
+
+tooltip {
+  background-color: @bg_dim;
+  border: 1px solid @bg_dim;
+  border-radius: 10px;      
+  padding: 8px;           
+  opacity: 1;            
+}
+
+tooltip label {
+  color: @green;         
+  font-size: 18px;
+}
+
+#battery{
+  border-radius: 10px 0 0 10px; 
+  margin: 0 0 0 4px;
+}
+
+#battery.warning:not(.charging) {
+    color: @yellow;
+}
+@keyframes blink {
+    0% { color: @red; }
+    50% { color: transparent; }
+    100% { color: @red; }
+}
+
+#battery.critical:not(.charging) {
+    animation-name: blink;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+#network.disconnected {
+    color: @red;
+}
+
+#workspaces {
+  border-radius:  0 10px 10px 0; 
+  margin: 0 4px 0 0 ;
+    padding: 0;
+}
+
+#workspaces button {
+  border-radius: 10px;
+  border: none;
+  box-shadow: none;
+  color: @fg;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#workspaces button:hover {
+    background: @green;
+    color: @bg0;
+}
+
+#workspaces button.focused {
+    background: @green;
+    color: @bg0;
+}
+
+#workspaces button.urgent {
+    background-color: @blue; 
+}
+
+#custom-bluetooth.connected-warning{
+    color: @yellow;
+}
+
+#custom-bluetooth.connected-critical{
+    color: @red;
+}
+
+#custom-bluetooth.on {
+    color: @blue;
+}
+
+#custom-bluetooth.off {
+    color: @grey2;
+}
+
+#custom-audio.mute {
+    color: @grey2;
+}
+
+
+

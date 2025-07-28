@@ -1,0 +1,60 @@
+# Colors (Everforest Dark)
+
+# Default colors
+[colors.primary]
+background = '#272e33'
+foreground = '#d3c6aa'
+
+# Normal colors
+[colors.normal]
+black   = '#272e33'
+red     = '#e67e80'
+green   = '#a7c080'
+yellow  = '#dbbc7f'
+blue    = '#7fbbb3'
+magenta = '#d699b6'
+cyan    = '#83c092'
+white   = '#d3c6aa'
+
+# Bright colors
+[colors.bright]
+black   = '#414b50'
+red     = '#e67e80'
+green   = '#a7c080'
+yellow  = '#dbbc7f'
+blue    = '#7fbbb3'
+magenta = '#d699b6'
+cyan    = '#83c092'
+white   = '#d3c6aa'
+
+[colors.cursor]
+text = "#d3c6aa"
+cursor = "#9da9a0"
+
+[colors.vi_mode_cursor]
+text = "#d3c6aa"
+cursor = "#9da9a0"
+
+[colors.search.matches]
+background = '#272e33'
+foreground = '#d3c6aa'
+
+[colors.search.focused_match]
+background = '#272e33'
+foreground = '#d3c6aa'
+
+[colors.footer_bar]
+background = '#272e33'
+foreground = '#d3c6aa'
+
+[colors.hints.start]
+foreground = "#d3c6aa"
+background = "#9da9a0"
+
+[colors.hints.end]
+foreground = "#d3c6aa"
+background = "#a5adcb"
+
+[colors.selection]
+text = "#d3c6aa"
+background = "#9da9a0"

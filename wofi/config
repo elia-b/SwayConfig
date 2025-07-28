@@ -1,0 +1,11 @@
+allow_images=true
+image_size=64
+width=90%
+height=90%
+insensitive=true
+mode=drun
+columns=4
+term=alacritty
+line_wrap=word
+no_actions=true
+prompt=Search for App

@@ -1,0 +1,28 @@
+#!/bin/bash
+get=$(brightnessctl get | grep -oE '[0-9]+')
+max=$(brightnessctl max | grep -oE '[0-9]+')
+brightness=$((get * 100 / max))
+
+if [ "$brightness" -gt "99" ]; then
+    dunstify -u low "󰛨 " "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness 
+elif [ "$brightness" -gt "89" ]; then
+    dunstify -u low "󱩖 " "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness 
+elif [ "$brightness" -gt "79" ]; then
+    dunstify -u low "󱩕 " "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness 
+elif [ "$brightness" -gt "69" ]; then
+    dunstify -u low "󱩔 " "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness 
+elif [ "$brightness" -gt "59" ]; then
+    dunstify -u low "󱩒 " "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness 
+elif [ "$brightness" -gt "49" ]; then
+    dunstify -u low "󱩒 " "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness 
+elif [ "$brightness" -gt "39" ]; then
+    dunstify -u low "󱩑 " "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness 
+elif [ "$brightness" -gt "29" ]; then
+    dunstify -u low "󱩐 " "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness 
+elif [ "$brightness" -gt "19" ]; then
+    dunstify -u low "󱩏 " "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness 
+elif [ "$brightness" -gt "9" ]; then
+    dunstify -u low "󱩎 " "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness 
+elif [ "$brightness" -lt "1" ]; then
+    dunstify -u low "󰛩 " "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness 
+fi

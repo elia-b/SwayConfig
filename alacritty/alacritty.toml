@@ -1,0 +1,40 @@
+[window]
+decorations = "None"
+startup_mode = "Maximized"
+
+[mouse]
+hide_when_typing = true
+
+[env]
+TERM="alacritty-direct"
+
+[font]
+size = 18.0
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Heavy"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Heavy Italic"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Medium Italic"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Medium"
+
+[selection]
+save_to_clipboard = true
+
+[general]
+
+live_config_reload = true
+
+import = [
+    "~/.config/alacritty/color-schemes/everforest.toml",
+    "~/.config/alacritty/keybindings.toml"
+]
