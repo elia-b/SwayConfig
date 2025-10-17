@@ -92,7 +92,7 @@ input type:keyboard {
 # General
 bindsym $mod+Return exec $term
 bindsym $mod+Backspace kill
-bindsym $mod+q kill
+bindsym $mod+Shift+q kill
 bindsym $mod+d exec $menu_files
 bindsym $mod+space exec $menu
 bindsym $mod+b exec $browser
@@ -193,6 +193,11 @@ bindsym $mod+c exec $menu_copy
 # Cron Jobs
 #===============================#
 exec_always --no-startup-id ~/.config/sway/battery_warning &
+
+#===============================#
+# USB and peripherals automount
+#===============================#
+exec udiskie -s
 
 #===============================#
 # Set Sway Default Stuff

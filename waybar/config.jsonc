@@ -26,7 +26,7 @@
     // Choose the order of the modules
     "modules-center": ["clock"],
     "modules-left": ["sway/workspaces"],
-    "modules-right": ["custom/bluetooth", "custom/audio", "network", "battery"],
+    "modules-right": ["tray", "custom/bluetooth", "custom/audio", "network", "battery"],
 
     // Configuration for individual modules
      "sway/workspaces": {
