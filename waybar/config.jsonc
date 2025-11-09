@@ -42,7 +42,7 @@
 
     "clock": {
         "timezone": "CET",
-        "tooltip-format": "<span color='#83c092'><big>{:%Y %B}</big></span>\n<tt><small>{calendar}</small></tt>",
+        "tooltip-format": "<span font='JetBrainsMono Nerd Font' color='#83c092'>{:%Y %B}</span>\n<tt><small>{calendar}</small></tt>",
         "format": "{:%H:%M %a %d-%m-%Y}",
 "calendar": {
 		"mode"          : "year",
@@ -51,11 +51,11 @@
 		"on-scroll"     : 1,
 		"on-click-right": "mode",
 		"format": {
-			"months":     "<span color='#a7c080'><b>{}</b></span>",
-			"days":       "<span color='#d3c6aa'><b>{}</b></span>",
-			"weeks":      "<span color='#7fbbb3'><b>W{}</b></span>",
-			"weekdays":   "<span color='#dbbc7f'><b>{}</b></span>",
-			"today":      "<span color='#e67e80'><b><u>{}</u></b></span>"
+			"months":     "<span font='JetBrainsMono Nerd Font' color='#a7c080'><b>{}</b></span>",
+			"days":       "<span font='JetBrainsMono Nerd Font' color='#d3c6aa'><b>{}</b></span>",
+			"weeks":      "<span font='JetBrainsMono Nerd Font' color='#7fbbb3'><b>W{}</b></span>",
+			"weekdays":   "<span font='JetBrainsMono Nerd Font' color='#dbbc7f'><b>{}</b></span>",
+			"today":      "<span font='JetBrainsMono Nerd Font' color='#e67e80'><b><u>{}</u></b></span>"
 		}
 	}
     },
