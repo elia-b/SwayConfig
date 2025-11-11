@@ -1,5 +1,5 @@
 configuration {
-	modes: "drun,homefilefinder,cliphist,iconpicker,emoji";
+	modes: "drun,homefilefinder,cliphist,iconpicker,emoji,todos";
 	font: "JetBrainsMono Nerd Font 18";
 	show-icons:                 true;
 	display-drun:               "  Apps";

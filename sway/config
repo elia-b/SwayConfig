@@ -190,6 +190,11 @@ exec wl-paste --watch cliphist store
 bindsym $mod+c exec $menu_copy
 
 #===============================#
+# Daily Objectives
+#===============================#
+bindsym $mod+t exec bash -ic 'rofi -show todos'
+
+#===============================#
 # Cron Jobs
 #===============================#
 exec_always --no-startup-id ~/.config/sway/battery_warning &
