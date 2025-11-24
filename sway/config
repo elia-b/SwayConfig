@@ -10,7 +10,7 @@ set $down j
 set $up k
 set $right l
 
-set $term alacritty -e ~/.local/bin/tmux_new_or_attach
+set $term ghostty -e ~/.local/bin/tmux_new_or_attach
 set $desktop $HOME/.config/system-images/forest_birdeye_view.jpg
 set $menu rofi -show drun -modes "drun" | xargs swaymsg exec --
 set $menu_files rofi -show homefilefinder -modes homefilefinder | xargs swaymsg exec --
