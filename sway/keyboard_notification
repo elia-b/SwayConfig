@@ -1,0 +1,8 @@
+#!/bin/bash
+
+layout=$(swaymsg -t get_inputs | jq -r '.[] 
+    | select(.type=="keyboard") 
+    | .xkb_active_layout_name')
+
+dunstify -u low " " "Layout: $layout"
+
