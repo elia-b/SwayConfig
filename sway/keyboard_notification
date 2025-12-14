@@ -1,8 +1,15 @@
 #!/bin/bash
 
-layout=$(swaymsg -t get_inputs | jq -r '.[] 
-    | select(.type=="keyboard") 
-    | .xkb_active_layout_name')
+layout=$(
+  swaymsg -t get_inputs \
+  | python3 -c '
+import json,sys
+for dev in json.load(sys.stdin):
+    if dev.get("type") == "keyboard":
+        print(dev.get("xkb_active_layout_name", ""))
+        break
+'
+)
 
-dunstify -u low " " "Layout: $layout"
+dunstify -u low " " "$layout"
 
