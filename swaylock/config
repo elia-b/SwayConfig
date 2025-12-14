@@ -36,3 +36,6 @@ text-ver-color=7fbbb3FF
 text-wrong-color=e67e80FF
 text-caps-lock-color=e69875FF
 
+layout-bg-color=272e3380
+layout-border-color=00000000
+layout-text-color=a7c080
