@@ -15,6 +15,7 @@ image/png=firefox-developer-edition.desktop
 image/svg+xml=firefox-developer-edition.desktop
 image/webp=firefox-developer-edition.desktop
 text/html=firefox-developer-edition.desktop
+text/plain=firefox-developer-edition.desktop
 text/xml=firefox-developer-edition.desktop
 x-scheme-handler/chrome=firefox-developer-edition.desktop
 x-scheme-handler/http=firefox-developer-edition.desktop
@@ -174,7 +175,6 @@ audio/x-xm=vlc.desktop
 application/mxf=vlc.desktop
 
 text/english=vlc.desktop
-text/plain=vlc.desktop
 text/x-makefile=vlc.desktop
 text/x-c++hdr=vlc.desktop
 text/x-c++src=vlc.desktop
