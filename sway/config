@@ -10,7 +10,8 @@ set $down j
 set $up k
 set $right l
 
-set $term ghostty -e ~/.local/bin/tmux_new_or_attach
+set $term_emulator ghostty
+set $term $term_emulator -e ~/.local/bin/tmux_new_or_attach
 set $desktop $HOME/.config/system-images/forest_birdeye_view.jpg
 set $menu rofi -show drun -modes "drun" | xargs swaymsg exec --
 set $menu_files rofi -show homefilefinder -modes homefilefinder | xargs swaymsg exec --
@@ -192,9 +193,12 @@ exec wl-paste --watch cliphist store
 bindsym $mod+c exec $menu_copy
 
 #===============================#
-# Daily Objectives
+# 
 #===============================#
+# Daily Objectives
 bindsym $mod+t exec bash -ic 'rofi -show todos'
+# Music
+bindsym $mod+m exec bash -ic '$term_emulator -e cmus & $term_emulator -e bash -ic mustatus'
 
 #===============================#
 # Cron Jobs
