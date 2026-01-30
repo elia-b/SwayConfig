@@ -1,11 +1,12 @@
 configuration {
-	modes: "drun,homefilefinder,cliphist,iconpicker,emoji,todos";
+	modes: "drun,homefilefinder,cliphist,gitmojis,iconpicker,emoji,todos";
 	font: "JetBrainsMono Nerd Font 18";
 	show-icons:                 true;
 	display-drun:               "  Apps";
 	display-run:                "  Run";
 	display-filebrowser:        "  FM";
 	display-emoji:		    "󰞅  Emoji";
+	display-gitmojis:	    "󰊢 Gitmoji";
 	display-window:             "  Windows";
 	display-ssh:                "  ssh" ;
 	display-homefilefinder:	    "  Files" ;

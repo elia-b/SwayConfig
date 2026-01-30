@@ -15,7 +15,7 @@ set $term $term_emulator -e ~/.local/bin/tmux_new_or_attach
 set $desktop $HOME/.config/system-images/forest_birdeye_view.jpg
 set $menu rofi -show drun -modes "drun" | xargs swaymsg exec --
 set $menu_files rofi -show homefilefinder -modes homefilefinder | xargs swaymsg exec --
-set $menu_copy rofi -show cliphist -sidebar-mode true -modes "cliphist,iconpicker,emoji" | xargs swaymsg exec --
+set $menu_copy rofi -show cliphist -sidebar-mode true -modes "cliphist,gitmojis,iconpicker,emoji" | xargs swaymsg exec --
 set $browser firefox-developer-edition
 
 set $partial_screenshot ~/.config/sway/selection_screenshot
