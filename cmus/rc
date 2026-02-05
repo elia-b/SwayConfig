@@ -1,5 +1,5 @@
 add ~/Music
-set aaa_mode=album
+set aaa_mode=all
 set altformat_current= %F 
 set altformat_playlist= %f%= %d %{?X!=0?%3X ?    }
 set altformat_title=%f
@@ -40,8 +40,8 @@ set color_win_cur_sel_fg=black
 set color_win_dir=green
 set color_win_fg=default
 set color_win_inactive_cur_sel_attr=default
-set color_win_inactive_cur_sel_bg=cyan
-set color_win_inactive_cur_sel_fg=black
+set color_win_inactive_cur_sel_bg=darkgray
+set color_win_inactive_cur_sel_fg=cyan
 set color_win_inactive_sel_attr=default
 set color_win_inactive_sel_bg=darkgray
 set color_win_inactive_sel_fg=default
@@ -68,7 +68,7 @@ set format_heading_artist=%a%= %{duration}
 set format_heading_playlist=%{?!panel?Playlist - }%{title}%= %{duration}    
 set format_playlist= %-21%a %3n. %t%= %y %d %{?X!=0?%3X ?    }
 set format_playlist_va= %-21%A %3n. %t (%a)%= %y %d %{?X!=0?%3X ?    }
-set format_statusline= %{status} %{?show_playback_position?%{position} %{?duration?/ %{duration} }?%{?duration?%{duration} }}%{?bpm>0?at %{bpm} BPM }%{?stream?buf: %{buffer} }%{?show_current_bitrate & bitrate>=0? %{bitrate} kbps }%= %{?repeat_current?repeat current?%{?play_library?%{?playlist_mode!="all"?%{playlist_mode} from }%{?play_sorted?sorted }library?playlist}} | %{?volume>=0?%{?lvolume!=rvolume?%{lvolume}%% %{rvolume}?%{volume}}%% | }%1{continue}%1{follow}%1{repeat}%1{shuffle} 
+set format_statusline= %{status} %{?show_playback_position?%{position} %{?duration?/ %{duration} }?%{?duration?%{duration} }}%{?bpm>0?at %{bpm} BPM }%{?stream?buf: %{buffer} }%{?show_current_bitrate & bitrate>=0? %{bitrate} kbps }%= %{?repeat_current?repeat current?%{?play_library?%{?playlist_mode!="all"?%{playlist_mode} from }%{?play_sorted?sorted }library?playlist}} 󰕾 %{?volume>=0?%{?lvolume!=rvolume?%{lvolume}%% %{rvolume}?%{volume}}%%  }%1{continue}%1{follow}%1{repeat}%1{shuffle} 
 set format_title=%a - %l - %t (%y)
 set format_trackwin=%3n. %t%= %d 
 set format_trackwin_album= %l %= %y %{duration} 
