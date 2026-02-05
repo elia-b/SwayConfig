@@ -198,7 +198,7 @@ bindsym $mod+c exec $menu_copy
 # Daily Objectives
 bindsym $mod+t exec bash -ic 'rofi -show todos'
 # Music
-bindsym $mod+m exec bash -ic '$term_emulator -e cmus & $term_emulator -e bash -ic mustatus'
+bindsym $mod+m exec bash -ic '$term_emulator -e music'
 
 #===============================#
 # Cron Jobs
