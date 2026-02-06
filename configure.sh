@@ -4,7 +4,7 @@ script_dir="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
 # wofi is not used for now
 
-for app in mimeapps.list system-images fontconfig ghostty waybar sway swaylock rofi dunst cmus; do
+for app in mimeapps.list system-images fontconfig ghostty waybar sway swaylock rofi dunst cmus opencode; do
   src="$script_dir/$app"
   tgt="$HOME/.config/$app"
   rm -rf "$tgt"
