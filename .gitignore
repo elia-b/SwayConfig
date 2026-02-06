@@ -2,3 +2,5 @@ rofi/nerd-fonts
 rofi/typescript
 cmus/*
 !cmus/rc
+opencode/*
+!opencode/opencode.json

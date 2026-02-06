@@ -4,5 +4,6 @@
   "permission": {
     "*": "ask",
     "edit": "allow"
+    "read": "allow"
   }
 }
