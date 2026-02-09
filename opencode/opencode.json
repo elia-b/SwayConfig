@@ -10,7 +10,7 @@
     "cd": "allow",
     "wc": "allow",
     "tail": "allow",
-    "bash": "allow",
+    
     "grep": "allow",
     "list": "allow",
     "lsp": "allow",
