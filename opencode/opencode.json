@@ -6,11 +6,8 @@
     "edit": "allow",
     "read": "allow",
     "glob": "allow",
-    "find": "allow",
-    "cd": "allow",
-    "wc": "allow",
-    "tail": "allow",
-    
+    "todoread": "allow",
+    "todowrite": "allow",
     "grep": "allow",
     "list": "allow",
     "lsp": "allow",
