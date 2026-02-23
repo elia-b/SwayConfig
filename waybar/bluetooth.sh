@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Check if Bluetooth is powered on
-powered=$(bluetoothctl show | grep "Powered: yes")
+powered=$(echo show | bluetoothctl | grep "Powered: yes")
 if [ -z "$powered" ]; then
     echo '{"text": "", "tooltip": " Off", "class": "off"}'
     exit 0
 fi
 
 # List connected devices
-devices=$(bluetoothctl info | grep "Name:" | awk -F'Name: ' '{print $2}' | paste -sd ", " -)
+devices=$(echo info | bluetoothctl | grep "Name:" | awk -F'Name: ' '{print $2}' | paste -sd ", " -)
 
-batteries=$(bluetoothctl info | grep "Battery Percentage" | sed 's/.*(\(.*\))/\1/' | paste -sd ", " -)
+batteries=$(echo info | bluetoothctl | grep "Battery Percentage" | sed 's/.*(\(.*\))/\1/' | paste -sd ", " -)
 
 if [ -z "$devices" ]; then
     echo '{"text": "", "tooltip": " On", "class": "on"}'
