@@ -78,7 +78,7 @@
         "format-ethernet": "Connected  ",
         "tooltip-format": "{ifname}: {gwaddr}",
         "format-disconnected": "Disconnected ⚠",
-        "on-click": "ghostty -e nmtui",
+        "on-click": "foot -e nmtui",
     },
 
     "custom/audio": {
@@ -94,6 +94,6 @@
         "return-type": "json",
         "interval": 10,
         "exec": "~/.config/waybar/bluetooth.sh",
-        "on-click": "ghostty -e bluetui"
+        "on-click": "foot -e bluetui"
     },
 }
