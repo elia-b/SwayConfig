@@ -1,0 +1,231 @@
+#!/usr/bin/env python3
+import os
+import shutil
+import subprocess
+import sys
+import time
+
+COVER_PATH = "/tmp/cmus_cover.jpg"
+
+BLACK = "\033[30m"
+RED = "\033[31m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
+BLUE = "\033[34m"
+MAGENTA = "\033[35m"
+CYAN = "\033[36m"
+WHITE = "\033[37m"
+
+RESET = "\033[0m"
+
+
+def run(cmd):
+    return subprocess.run(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True
+    )
+
+
+def get_cmus_status():
+    try:
+        return run(["cmus-remote", "-Q"]).stdout.splitlines()
+    except FileNotFoundError:
+        return None
+
+
+def parse_status(lines):
+    info = {}
+    for line in lines:
+        if line.startswith("tag "):
+            _, key, val = line.split(" ", 2)
+            info[key] = val
+        elif line.startswith("file "):
+            info["file"] = line[5:]
+        elif line.startswith("position "):
+            info["position"] = float(line.split(" ", 1)[1])
+    return info
+
+
+def extract_cover(track):
+    if os.path.exists(COVER_PATH):
+        os.remove(COVER_PATH)
+
+    subprocess.run(
+        ["ffmpeg", "-y", "-i", track, "-an", "-vcodec", "copy", COVER_PATH],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    return os.path.exists(COVER_PATH)
+
+
+def get_duration(track):
+    try:
+        out = subprocess.check_output(
+            [
+                "ffprobe",
+                "-v",
+                "error",
+                "-show_entries",
+                "format=duration",
+                "-of",
+                "default=noprint_wrappers=1:nokey=1",
+                track,
+            ]
+        )
+        return float(out.strip())
+    except Exception:
+        return 0.0  # fallback if ffprobe fails
+
+
+def sec_to_timestamp(seconds):
+    minutes = int(seconds // 60)
+    seconds = int(seconds % 60)
+    if seconds < 10:
+        seconds = f"0{seconds}"
+    return f"{minutes}:{seconds}"
+
+
+def show_duration(position, duration):
+    if duration < 1:
+        return
+    percentage_passed = position / duration
+    position = sec_to_timestamp(position)
+    duration = sec_to_timestamp(duration)
+    rows, _ = shutil.get_terminal_size()
+    time_display = f"{position} / {duration}"
+    rows -= len(time_display)
+    rows *= 2 / 3
+    passed_time = int(rows * percentage_passed)
+    time_to_come = int(rows) - passed_time
+    print_center(
+        f"{time_display} {'░' * passed_time}{'█' * time_to_come}", highlight=CYAN
+    )
+
+
+def show_cover():
+    subprocess.run(["kitty", "+kitten", "icat", COVER_PATH])
+
+
+def load_lrc(track):
+    lrc = os.path.splitext(track)[0] + ".lrc"
+    if not os.path.exists(lrc):
+        return []
+
+    entries = [(0.0, "")]
+    with open(lrc, encoding="utf-8", errors="ignore") as f:
+        for line in f:
+            while "[" in line and "]" in line:
+                ts = line[line.find("[") + 1 : line.find("]")]
+                text = line[line.find("]") + 1 :].strip()
+                if ":" in ts:
+                    m, s = ts.split(":")
+                    try:
+                        t = int(m) * 60 + float(s)
+                        entries.append((t, text))
+                    except ValueError:
+                        pass
+                line = line[line.find("]") + 1 :]
+    return sorted(entries)
+
+
+def clear():
+    print("\033[2J\033[H", end="")
+
+
+def partial_clear(n: int):
+    for _ in range(n):
+        print("\033[1A\033[2K", end="")
+
+
+def print_center(text, highlight: str | None = None, toilet: bool = False):
+    rows, _ = shutil.get_terminal_size()
+    row = max(1, (rows - len(text)) // 2) - 1
+    if len(text) - 2 > rows:
+        text = text[: (rows - 2)]
+        text = text[:-3] + "..."
+    if highlight is not None:
+        text = highlight + text + RESET
+    text = f"{row * ' '}{text}{row * ' '}"
+    if not toilet:
+        print(text)
+    else:
+        toi = run(["toilet", "-f", "term", "-F", "border", text]).stdout
+        for l in toi.split("\n")[:-1]:
+            print(l)
+
+
+def get_viewer_count():
+    cmd = "tmux list-clients | wc -l"
+    output = subprocess.check_output(cmd, shell=True)
+    return int(output.strip())
+
+
+def main():
+    current_track = None
+    lyrics = []
+    duration = 0
+    current_rows = 0
+    current_viewers = 0
+
+    clear()
+    while True:
+        lines = get_cmus_status()
+        if not lines:
+            time.sleep(1)
+            continue
+
+        lines_to_reset = 0
+        info = parse_status(lines)
+        track = info.get("file")
+        rows, _ = shutil.get_terminal_size()
+        viewers = get_viewer_count()
+
+        if track and (
+            track != current_track or rows != current_rows or viewers != current_viewers
+        ):
+            current_track = track
+            current_rows = rows
+            current_viewers = viewers
+            lyrics = load_lrc(track)
+
+            clear()
+            if extract_cover(track):
+                print("")
+                show_cover()
+
+            artist = info.get("artist", "Unknown Artist")
+            album = info.get("album", "Unknown Album")
+            title = info.get("title", "Unknown Title")
+            year = info.get("date", "")
+            duration = get_duration(track)
+
+            print_center(f"{artist} — {title}", highlight=WHITE, toilet=True)
+            print_center(f"{album} ({year})", highlight=BLUE)
+
+        if "position" in info:
+            pos = info["position"]
+
+            show_duration(pos, duration)
+            lines_to_reset += 1
+
+            if lyrics:
+                idx = max(i for i, (t, _) in enumerate(lyrics) if t <= pos)
+
+                for i in range(max(0, idx - 2), min(len(lyrics), idx + 3)):
+                    rows, _ = shutil.get_terminal_size()
+                    line = lyrics[i][1]
+                    n_rows = len(line) // rows
+                    n_rows += 1 if len(line) % rows > 0 else 0
+                    n_rows = max(n_rows, 1)
+                    lines_to_reset += n_rows
+                    if i == idx:
+                        print_center(line, highlight=CYAN)
+                    else:
+                        print_center(line)
+
+        sys.stdout.flush()
+        time.sleep(1)
+        partial_clear(lines_to_reset)
+
+
+if __name__ == "__main__":
+    main()

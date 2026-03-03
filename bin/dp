@@ -1,0 +1,5 @@
+#!/bin/bash
+# dp stands for delete password
+# it actually just deletes the last entry in my clipboard history
+
+cliphist delete-query $(wl-paste)

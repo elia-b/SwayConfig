@@ -1,0 +1,26 @@
+#!/bin/bash
+
+SESSION="music"
+
+# Check if the session exists
+if ! tmux has-session -t "$SESSION" 2>/dev/null; then
+    # Create a new detached session and run cmus in the first pane immediately
+    tmux new-session -d -s "$SESSION" -n music 'cmus'
+
+    # Disable status line for this session
+    tmux set-option -t "$SESSION" status off
+    # tmux set-option -t "$SESSION" pane-border-status off 
+    tmux set-option -t "$SESSION" pane-border-style "fg=black,bg=black"
+    tmux set-option -t "$SESSION" pane-active-border-style "fg=black,bg=black"
+
+    # Split the first window horizontally (side by side)
+    tmux split-window -h -t "$SESSION:music" "mustatus"
+
+    tmux split-window -v -l 1 -t "$SESSION:music" "cava"
+    # Focus back on the left pane (cmus)
+    tmux select-pane -L
+fi
+
+# Attach to the session
+tmux attach-session -t "$SESSION"
+
