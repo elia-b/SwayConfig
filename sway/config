@@ -16,7 +16,7 @@ set $desktop $HOME/.config/system-images/forest_birdeye_view.jpg
 set $menu rofi -show drun -modes "drun" | xargs swaymsg exec --
 set $menu_files rofi -show homefilefinder -modes homefilefinder | xargs swaymsg exec --
 set $menu_copy rofi -show cliphist -sidebar-mode true -modes "cliphist,gitmojis,iconpicker,emoji" | xargs swaymsg exec --
-set $browser firefox-developer-edition
+set $browser $(command -v firefox-developer-edition >/dev/null 2>&1 && echo firefox-developer-edition || echo firefox)
 
 set $partial_screenshot ~/.config/sway/selection_screenshot
 set $screenshot grim - | tee ~/Pictures/Screenshots/$(date "+%Y%m%d-%H%M%S").png | wl-copy && dunstify -u low "󰹑" "Fullscreen Screenshot"
