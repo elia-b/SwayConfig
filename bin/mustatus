@@ -16,6 +16,15 @@ MAGENTA = "\033[35m"
 CYAN = "\033[36m"
 WHITE = "\033[37m"
 
+BG_BLACK = "\033[40m"
+BG_RED = "\033[41m"
+BG_GREEN = "\033[42m"
+BG_YELLOW = "\033[43m"
+BG_BLUE = "\033[44m"
+BG_MAGENTA = "\033[45m"
+BG_CYAN = "\033[46m"
+BG_WHITE = "\033[47m"
+
 RESET = "\033[0m"
 
 
@@ -97,7 +106,7 @@ def show_duration(position, duration):
     passed_time = int(rows * percentage_passed)
     time_to_come = int(rows) - passed_time
     print_center(
-        f"{time_display} {'░' * passed_time}{'█' * time_to_come}", highlight=CYAN
+        f"{time_display} {'░' * passed_time}{'█' * time_to_come}", foreground=CYAN
     )
 
 
@@ -136,15 +145,22 @@ def partial_clear(n: int):
         print("\033[1A\033[2K", end="")
 
 
-def print_center(text, highlight: str | None = None, toilet: bool = False):
+def print_center(
+    text,
+    foreground: str | None = None,
+    background: str | None = None,
+    toilet: bool = False,
+):
     rows, _ = shutil.get_terminal_size()
     row = max(1, (rows - len(text)) // 2) - 1
     if len(text) - 2 > rows:
         text = text[: (rows - 2)]
         text = text[:-3] + "..."
-    if highlight is not None:
-        text = highlight + text + RESET
     text = f"{row * ' '}{text}{row * ' '}"
+    if foreground is not None:
+        text = foreground + text + RESET
+    if background is not None:
+        text = background + text + RESET
     if not toilet:
         print(text)
     else:
@@ -198,8 +214,8 @@ def main():
             year = info.get("date", "")
             duration = get_duration(track)
 
-            print_center(f"{artist} — {title}", highlight=WHITE, toilet=True)
-            print_center(f"{album} ({year})", highlight=BLUE)
+            print_center(f"{artist} — {title}", background=BG_CYAN, foreground=BLACK)
+            print_center(f"{album} ({year})", foreground=BLUE)
 
         if "position" in info:
             pos = info["position"]
@@ -213,12 +229,9 @@ def main():
                 for i in range(max(0, idx - 2), min(len(lyrics), idx + 3)):
                     rows, _ = shutil.get_terminal_size()
                     line = lyrics[i][1]
-                    n_rows = len(line) // rows
-                    n_rows += 1 if len(line) % rows > 0 else 0
-                    n_rows = max(n_rows, 1)
-                    lines_to_reset += n_rows
+                    lines_to_reset += 1
                     if i == idx:
-                        print_center(line, highlight=CYAN)
+                        print_center(line, foreground=CYAN)
                     else:
                         print_center(line)
 
