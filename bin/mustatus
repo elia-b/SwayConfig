@@ -25,6 +25,7 @@ BG_MAGENTA = "\033[45m"
 BG_CYAN = "\033[46m"
 BG_WHITE = "\033[47m"
 
+BOLD = "\033[1m"
 RESET = "\033[0m"
 
 
@@ -150,17 +151,22 @@ def print_center(
     foreground: str | None = None,
     background: str | None = None,
     toilet: bool = False,
+    bold: bool = False,
 ):
     rows, _ = shutil.get_terminal_size()
     row = max(1, (rows - len(text)) // 2) - 1
-    if len(text) - 2 > rows:
-        text = text[: (rows - 2)]
+    if len(text) + 2 > rows:
+        text = text[:rows]
         text = text[:-3] + "..."
     text = f"{row * ' '}{text}{row * ' '}"
+    if len(text) < rows:
+        text += " " * (rows - len(text))
     if foreground is not None:
         text = foreground + text + RESET
     if background is not None:
         text = background + text + RESET
+    if bold:
+        text = BOLD + text
     if not toilet:
         print(text)
     else:
@@ -214,8 +220,10 @@ def main():
             year = info.get("date", "")
             duration = get_duration(track)
 
-            print_center(f"{artist} — {title}", background=BG_CYAN, foreground=BLACK)
-            print_center(f"{album} ({year})", foreground=BLUE)
+            print_center(
+                f"{artist} — {title}", background=BG_CYAN, foreground=BLACK, bold=True
+            )
+            print_center(f"{album} ({year})", foreground=BLUE, bold=True)
 
         if "position" in info:
             pos = info["position"]
@@ -231,7 +239,7 @@ def main():
                     line = lyrics[i][1]
                     lines_to_reset += 1
                     if i == idx:
-                        print_center(line, foreground=CYAN)
+                        print_center(line, foreground=CYAN, bold=True)
                     else:
                         print_center(line)
 
