@@ -13,7 +13,13 @@ set $right l
 set $term $(command -v ghostty >/dev/null 2>&1 && echo ghostty || echo foot)
 set $tmux_term $term -e ~/.local/bin/tmux_new_or_attach
 set $desktop $HOME/.config/system-images/forest_birdeye_view.jpg
-set $menu rofi -show drun -modes "drun" | xargs swaymsg exec --
+set $menu rofi -show drun -mode "drun" \
+  -run-command 'sh -c "GTK_THEME=Adwaita-dark \
+    GTK_APPLICATION_PREFER_DARK_THEME=1 \
+    GTK_ICON_THEME=Papirus-Dark \
+    QT_QPA_PLATFORMTHEME=qt5ct \
+    QT_QPA_PLATFORM=wayland \
+    {cmd}"' | xargs swaymsg exec --
 set $menu_files rofi -show homefilefinder -modes homefilefinder | xargs swaymsg exec --
 set $menu_copy rofi -show cliphist -sidebar-mode true -modes "cliphist,gitmojis,iconpicker,emoji" | xargs swaymsg exec --
 set $browser $(command -v firefox-developer-edition >/dev/null 2>&1 && echo firefox-developer-edition || echo firefox)
