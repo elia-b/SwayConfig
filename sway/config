@@ -216,7 +216,7 @@ exec_always --no-startup-id ~/.config/sway/battery_warning &
 #===============================#
 # USB and peripherals automount
 #===============================#
-exec udiskie -s
+exec udiskie -s --mount-options rw,uid=1000,gid=1000
 
 #===============================#
 # Set Sway Default Stuff
