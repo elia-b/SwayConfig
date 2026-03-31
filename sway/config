@@ -17,7 +17,8 @@ set $menu rofi -show drun -mode "drun" \
   -run-command 'sh -c "GTK_THEME=Adwaita-dark \
     GTK_APPLICATION_PREFER_DARK_THEME=1 \
     GTK_ICON_THEME=Papirus-Dark \
-    QT_QPA_PLATFORMTHEME=qt6ct \
+    QT_QPA_PLATFORMTHEME=qt5ct \
+    QT_STYLE_OVERRIDE=kvantum \
     QT_QPA_PLATFORM=wayland \
     {cmd}"' | xargs swaymsg exec --
 set $menu_files rofi -show homefilefinder -modes homefilefinder | xargs swaymsg exec --
