@@ -15,12 +15,16 @@ batteries=$(echo info | bluetoothctl | grep "Battery Percentage" | sed 's/.*(\(.
 if [ -z "$devices" ]; then
     echo '{"text": "", "tooltip": " On", "class": "on"}'
 else
-    first_battery=$(echo "$batteries" | cut -d',' -f1 | tr -d ' ')
-    if [ -n "$first_battery" ] && [ "$first_battery" -lt 15 ]; then
-        echo "{\"text\": \" $batteries%\", \"tooltip\":\"$devices\" , \"class\": \"connected-critical\"}"
-    elif [ -n "$first_battery" ] && [ "$first_battery" -lt 30 ]; then
-        echo "{\"text\": \" $batteries%\", \"tooltip\":\"$devices\" , \"class\": \"connected-warning\"}"
-    else
-        echo "{\"text\": \" $batteries%\", \"tooltip\":\"$devices\" , \"class\": \"connected\"}"
+    if [ -z "$batteries" ]; then
+        echo "{\"text\": \"\", \"tooltip\":\"$devices\" , \"class\": \"connected\"}"
+   else
+        first_battery=$(echo "$batteries" | cut -d',' -f1 | tr -d ' ')
+        if [ -n "$first_battery" ] && [ "$first_battery" -lt 15 ]; then
+            echo "{\"text\": \" $batteries%\", \"tooltip\":\"$devices\" , \"class\": \"connected-critical\"}"
+        elif [ -n "$first_battery" ] && [ "$first_battery" -lt 30 ]; then
+            echo "{\"text\": \" $batteries%\", \"tooltip\":\"$devices\" , \"class\": \"connected-warning\"}"
+        else
+            echo "{\"text\": \" $batteries%\", \"tooltip\":\"$devices\" , \"class\": \"connected\"}"
+        fi
     fi
 fi
