@@ -13,16 +13,16 @@ set $right l
 set $term $(command -v ghostty >/dev/null 2>&1 && echo ghostty || echo foot)
 set $tmux_term $term -e ~/.local/bin/tmux_new_or_attach
 set $desktop $HOME/.config/system-images/forest_birdeye_view.jpg
-set $menu rofi -show drun -mode "drun" \
+set $menu rofi -show drun -modes "drun" \
   -run-command 'sh -c "GTK_THEME=Adwaita-dark \
     GTK_APPLICATION_PREFER_DARK_THEME=1 \
-    GTK_ICON_THEME=Papirus-Dark \
     QT_QPA_PLATFORMTHEME=qt5ct \
     QT_STYLE_OVERRIDE=kvantum \
     QT_QPA_PLATFORM=wayland \
     {cmd}"' | xargs swaymsg exec --
 set $menu_files rofi -show homefilefinder -modes homefilefinder | xargs swaymsg exec --
-set $menu_copy rofi -show cliphist -sidebar-mode true -modes "cliphist,gitmojis,iconpicker,emoji" | xargs swaymsg exec --
+set $menu_copy rofi -show cliphist -modes "cliphist" | xargs swaymsg exec --
+set $menu_emojis rofi -show gitmojis -sidebar-mode true -modes "gitmojis,iconpicker,emoji" | xargs swaymsg exec --
 set $browser $(command -v firefox-developer-edition >/dev/null 2>&1 && echo firefox-developer-edition || echo firefox)
 
 set $partial_screenshot ~/.config/sway/selection_screenshot
@@ -104,7 +104,6 @@ input type:keyboard {
 bindsym $mod+Return exec $tmux_term
 bindsym $mod+Backspace kill
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec $menu_files
 bindsym $mod+space exec $menu
 bindsym $mod+b exec $browser
 bindsym $mod+Shift+c reload
@@ -132,6 +131,12 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+#===============================#
+# Extra bindings
+#===============================#
+bindsym $mod+g exec $menu_emojis
+bindsym $mod+d exec $menu_files
 
 #===============================#
 # Workspaces
